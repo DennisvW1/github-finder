@@ -1,14 +1,17 @@
-import { createContext, useReducer } from "react";
+import React, { ReactNode, createContext, useReducer } from "react";
 import alertReducer from "./AlertReducer";
 
-const AlertContext = createContext();
+const AlertContext = createContext({});
 
-export const AlertProvider = ({ children }) => {
+type Props = {
+    children?: ReactNode
+}
+export const AlertProvider = ({ children }: Props) => {
     const initialState = null;
 
     const [state, dispatch] = useReducer(alertReducer, initialState)
 
-    const setAlert = (msg, type) => {
+    const setAlert = (msg: string, type: string) => {
         dispatch({
             type: "SET_ALERT",
             payload: { msg, type }

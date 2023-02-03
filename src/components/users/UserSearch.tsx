@@ -6,12 +6,12 @@ import { searchUsers } from '../../context/github/GithubActions';
 function UserSearch() {
     const [text, setText] = useState("");
 
-    const { users, dispatch } = useContext(GithubContext)
-    const { setAlert } = useContext(AlertContext)
+    const { users, dispatch }: any = useContext(GithubContext)
+    const { setAlert }: any = useContext(AlertContext)
 
-    const handleChange = (e) => setText(e.target.value)
+    const handleChange = (e: any) => setText(e.target.value)
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         if (text === '') {

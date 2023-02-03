@@ -2,18 +2,23 @@ import React, { useEffect, useContext } from 'react'
 import GithubContext from '../context/github/GithubContext'
 import { Link, useParams } from 'react-router-dom';
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from "react-icons/fa";
+// @ts-ignore
 import Spinner from '../components/layout/Spinner';
 import RepoList from '../components/repos/RepoList';
 import { getUser, getUserRepos } from '../context/github/GithubActions';
 
 function User() {
-    const { user, repos, isLoading, dispatch } = useContext(GithubContext);
+    const { user, repos, isLoading, dispatch }: any = useContext(GithubContext);
 
     const params = useParams();
 
     useEffect(() => {
         const getUserData = async () => {
             dispatch({ type: "SET_LOADING" })
+
+            if (!params.login) {
+                return;
+            }
 
             const userData = await getUser(params.login)
             dispatch({ type: "GET_USER", payload: userData })

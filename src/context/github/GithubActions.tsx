@@ -1,10 +1,8 @@
-
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
-
 // get search results
-export const searchUsers = async (text) => {
+export const searchUsers = async (text: string) => {
     const params = new URLSearchParams({
         q: text
     })
@@ -20,7 +18,8 @@ export const searchUsers = async (text) => {
 }
 
 // get a single user
-export const getUser = async (login) => {
+export const getUser = async (login: string) => {
+
     const response = await fetch(`${GITHUB_URL}/users/${login}`, {
         headers: {
             Authorization: `token ${GITHUB_TOKEN}`
@@ -28,7 +27,8 @@ export const getUser = async (login) => {
     })
 
     if (response.status === 404) {
-        window.location = "/notfound";
+        // @ts-ignore
+        window.location = ("/notfound");
     } else {
         const data = await response.json();
 
@@ -36,12 +36,13 @@ export const getUser = async (login) => {
     }
 }
 
+
 // get user repos
-export const getUserRepos = async (login) => {
-    const params = new URLSearchParams({
+export const getUserRepos = async (login: string) => {
+    const params: string = new URLSearchParams({
         sort: "created",
-        per_page: 10
-    })
+        per_page: "10"
+    }).toString();
 
     const response = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
         headers: {
